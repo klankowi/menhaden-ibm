@@ -193,7 +193,7 @@ for(k in 1:length(timesubs)){
 |        We will now save the HSI model without salinity.
 
 \singlespacing
-```{r}
+```{r, eval=F}
 # Allocate blank list - no salinity
 nosal_rast <-  vector(mode="list", length=length(timesubs))
 # Loop through SI rasters to create HSI
