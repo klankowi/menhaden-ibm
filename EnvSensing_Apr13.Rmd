@@ -1,0 +1,421 @@
+---
+title: "Environmental sensing and movement"
+author: "Katie Lankowicz"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: pdf_document
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+    - \usepackage{float}
+sansfont: Calibri
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Clear workspace
+rm(list=ls())
+
+#### Load libraries ####
+library(raster)
+library(dismo)
+library(dplyr)
+library(gstat)
+library(sp)
+library(SiMRiv)
+library(adehabitatLT)
+library(truncnorm)
+library(donut)
+library(RANN)
+library(nabor)
+library(plotrix)
+library(viridis)
+library(chron)
+
+# Set seed for reproducibility
+set.seed(1234)
+
+# Load self-made functions
+# Degrees to radians function
+deg2rad <- function(deg) {(deg * pi) / (180)}
+source("sense_cylinder.R")
+source("movement_cylinder.R")
+```
+|        This document preserves the code used to create an individual-based model of juvenile menhaden movement when the fish sense and respond to their environment, but not each other. A second individual-based model will simulate juveneile menhaden movement when the fish sense and respond to each other, but not to the environment. It is recognized that neither of these two models is likely to be a good representation of actual menhaden movement and aggregation. The end goal is to compare the properties of aggregations resulting from these two simulations to each other AND to empirical data on juvenile menhaden schooling collected from St. Leonard Creek.  
+|        The model space, interpolated environmental conditions, and habitat suitability index were created in previous documents. This model is dependent on those data.  
+
+## Load data
+\singlespacing
+```{r}
+# Load original grid and environmental data
+load(paste0("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/",
+            "Raster_Data/","ncdf_output.RData"))
+row.names(time) <- NULL
+time <- time[
+  with(time, order(timestamp)),
+]
+time$timestamp <- time$timestamp + (3*60*60)
+rm(r, gri)
+
+# Load HSI
+hsi <- readRDS(paste0("G:/My Drive/Documents_Backup/Modeling/",
+                      "Modeling_RCode/Raster_Data/HSI/results/",
+                      "HSI_rast_short_gm.rds"))
+
+# Determine universal spacetime HSI range
+newlist <- vector(mode="list", length=length(hsi))
+for(h in 1:length(hsi)){
+  newlist[[h]] <- hsi[[h]]@data@values
+}
+hsivals <- do.call(rbind, newlist)
+minhsi <- round(min(hsivals),2)
+maxhsi <- round(max(hsivals),2)
+rm(newlist,  hsivals)
+
+# Change HSI coordinates from projected m lat-lon to simple m
+for(c in 1:length(hsi)){
+  hsi[[c]]@extent[1] <- 0
+  hsi[[c]]@extent[2] <- 500
+  hsi[[c]]@extent[3] <- 0
+  hsi[[c]]@extent[4] <- 2500
+}
+
+# Set color palette
+cols <- viridis(256)
+
+# Check extent change
+# plot(hsi[[1]], 
+#      col=cols,
+#      zlim=c(minhsi,  maxhsi),
+#      xlab="Longitude(m)",
+#      ylab="Latitute (m)",
+#      legend.args=list(text="HSI", side=4, line=2.5),
+#      main=paste0(time$timestamp[1])
+#      )
+```
+  
+## Define raster size
+\singlespacing
+```{r}
+n.row <- 250
+n.col <- 50
+```
+\onehalfspacing
+  
+\newpage
+## Initialize fish
+|        We will begin by initializing 1000 individual fish. These fish will have their own identities, and the environmental conditions they pass through will be preserved for every time step in separate arrays. Many of the initialized parameters are based on values pulled from the literature or assumptions.  
+|        We will start with 1000 fish, which is likely to be a little low for a creek similar to the idealized version in the model. We typically identified around 1000 fish per 2.5km survey in the St. Leonard Creek in June 2017, which means there are likely thousands more outside our field of view. We will play around with this number in future versions of the model, and may be able to use it to get a more accurate population index later.  
+|        Each fish will be a length between 4 and 6 cm long to start, which is consistent with juvenile menhaden length in the Chesapeake Bay in early May. The exact lenght of each fish will come from a truncated normal distribution between these values.  
+|        Fish will be able to move >0 to 4 body lengths per second. They must move and cannot stay still. The literature states that undisturbed, menhaden typically move up to 2.5 body lengths per second. When placed in a flow-through chamber, they are able to sustain up to 23 body lengths per second. We will set an arbitrary maximum at 4 body lengths per second, and may change it if necessary. The movement speed of each fish will come from a truncated normal distribution between the bounds.  
+|        Finally, fish will be able to sense HSI gradients between 5 and 30 meters distance around them in a "visual arc." The fish cannot see or respond to environments directly behind them, and so can only sense the environment 135 degrees to the left and right of their initial bearing. This makes a 90 degree blind spot directly behind them. The "visual arc" is more suited to the schooling model than the environmental model, but at this stage I have kept it in. It may be removed from this model in the future. The fish must be able to sense outside of the cell they are in. Cells are 10m by 10m resolution, so it is likely that a 5m minimum sensing distance will allow a fish to sense neighboring cells within its "vision arc," unless it is at the very edge of a cell and facing directly towards the center of the cell. This is unlikely, but future versions of the model may compensate for it by increasing the minimum sensing distance or removing the "vision arc" as discussed earlier. The maximum sensing distance, 30m, is an arbitrary decision. The sense distance for each individual will come from a truncated normal distribution between the minimum and maximum bounds.  
+|        The initial x and y locations of each fish are randomly sampled from within the grid space. The initial bearing of the fish is randomly initialized. Keep in mind that R selects angles according to the unit circle, so that a bearing of 0 degrees is parallel to the x-axis of a Cartesian plot and towards the positive direction. This is fine for us. No turn angle is given at initialization, as this is a variable that is calculated by having the fish sense and move towards suitable habitat.  
+|        The HSI value for the cell they are, recorded as \texttt{score} in is pulled from the HSI raster of the associated hour (recall that the environmental variables were simulated hourly by the SCHISM-ICM). 
+|        The model also keeps empty variables that are related to schooling. These are not used in the environmental variable, but instead are important to the schooling model. They have been kept in this model out of blind optimism that one day, I will be able to combine the behavioral and environmental cues into a more comprehensive IBM. These variables are: \texttt{nn.idx}, which will record the ID of the nearest neighboring fish, \texttt{nn.dist}, which is the distance to that nearest neighbor, \texttt{ang}, which is the angle between the bearings of the two fish, and \texttt{tru}, which is a flag used to record whether the nearest neighbor is within the "vision arc" and recalculate neighbor identities if it is not.
+
+\newpage
+\singlespacing
+```{r}
+# Number of individuals
+n <- 1000
+
+# Frequency (in seconds) to update movement
+s <- 30
+
+# Keep track because I'm stupid
+steps_in_a_day <- 24*60*(60/s)
+
+# Daily growth potential in length
+growthpot     <- round(rnorm(n=n, mean=0.0004705),7)
+for(l in 1:length(growthpot)){
+  while(growthpot[l]< 0.000021 | growthpot[l] > 0.00092){
+    growthpot[l] <- round(rnorm(n=1, mean=0.0004705), 7)
+  }
+}
+
+# List the things that we will use to identify individuals
+listofthings <- c("x_loc", "y_loc",
+                  "body_len", 
+                  "growth",
+                  "swimspd",
+                  "score",
+                  "dist", 
+                  "bearing",
+                  "cellnum", 
+                  "individual", 
+                  "turn",
+                  "sensedist",
+                  "nn.idx", 
+                  "nn.dist",
+                  "ang", 
+                  "tru")
+
+# Blank array
+inds            <- array(data = 0, dim = c(n, length(listofthings)))
+
+# Set row names
+rn              <- as.numeric(1:n)
+rownames(inds)  <- rn;
+rm(rn)
+
+# Set variable names
+colnames(inds)  <- listofthings
+
+# Initiate ID
+inds[,"individual"] <- seq(1:n)
+
+# Body length for May expected 0.050-0.075 m
+inds[,"body_len"]   <- round(rnorm(n=n,mean=0.050, sd=0.0065),3)
+for(m in 1:length(inds[,"body_len"])){
+  while(inds[m,"body_len"] < 0.050 | inds[m,"body_len"] > 0.075){
+    inds[m,"body_len"]   <- round(rnorm(n=1,mean=0.050, sd=0.0065),3)
+  }
+}
+
+# Initiate positions on xy grid of size 500m, 2500m
+inds[, "x_loc"]     <- round(runif(n, 0, n.col*10), 1)
+inds[, "y_loc"]     <- round(runif(n, 0, n.row*10), 1)
+
+# Find cell name in rasters
+inds[,"cellnum"]    <- cellFromXY(hsi[[1]],
+                                  cbind(inds[,"x_loc"],
+                                    inds[,"y_loc"]))
+
+# Pull conditions at cell
+inds[,"score"]      <- extract(hsi[[1]], 
+                               inds[,"cellnum"])
+
+```
+\newpage
+```{r}
+inds[,"bearing"]    <- round(runif(n=n, min=0, max=359),0)
+for(b in 1:n){
+  if(inds[b,"bearing"] > 360){
+    inds[b,"bearing"] <- inds[b,"bearing"]-360
+  }
+  if(inds[b,"bearing"] < 0){
+    inds[b,"bearing"] <- inds[b,"bearing"] + 360
+  }
+}
+inds[,"turn"]       <- NA
+
+# Set sense distance
+inds[,"sensedist"] <- round(rnorm(n=n, mean=15, sd=7.5),2)
+for(p in 1:length(inds[,"sensedist"])){
+  while(inds[p,"sensedist"] < 5 | inds[p,"sensedist"] > 30){
+    inds[p,"sensedist"] <- round(rnorm(n=1, mean=15, sd=7.5),2)
+  }
+}
+
+# Randomly determine the bodylengths to move per individ in xy directs.
+# Literature states this should be around 0.5-2.5 bl/sec
+# Max short burst swim spd is 23 bl/sec but is only seen in lab
+# We will set an arbitrary max at 4 bl/sec for now
+inds[,"swimspd"]<- round(rnorm(n=n, mean=1, sd=1),1)
+for(u in 1:n){
+  while(inds[u,"swimspd"]<=0 | inds[u,"swimspd"] >4){
+    inds[u,"swimspd"]<- round(rnorm(n=1, mean=1, sd=1),1)
+  }
+}
+
+# Find coterminal angle within unit circle
+for(w in 1:n){
+  if(inds[w,"bearing"]<0){
+    inds[w,"bearing"] <- inds[i,"bearing"]+360
+  }
+  if(inds[w,"bearing"]>360){
+    inds[w,"bearing"] <- inds[i,"bearing"]-360
+  }
+}
+
+rm(b,c,h,l,m,p,u,w, n.col, n.row)
+```
+\newpage
+```{r, eval=F}
+#summary(inds)
+```
+\onehalfspacing
+  
+\newpage
+## Plot position of fish
+|        The initial positions of the fish can be plotted on the HSI raster for the first time step. Menhaden are schooling fish, so it is not ecologically sensible that so many are off on their own. Both this model and the schooling model will likely need a significant "spool up" period to get to more ecologically realistic aggregations. We may consider using the entire month of May as a spool up period, since we have environmental data and one field sample taken in that month.  
+\singlespacing
+```{r, eval=F, fig.width=8.5, fig.height=11}
+# Plot original positions of fish
+# plot(hsi[[1]], 
+#      asp=1,
+#      col=cols,
+#      zlim=c(minhsi,  maxhsi),
+#      xlab="Longitude(m)",
+#      ylab="Latitute (m)",
+#      legend.args=list(text="HSI", side=4, line=2.5)
+#      )
+# points(x = inds[,"x_loc"], y = inds[,"y_loc"], pch = 20, cex = 0.3)
+```
+\onehalfspacing
+  
+\newpage
+## Sensing function
+|        This function contains all the rules for sensing the environment. The next function will actually move the fish according to the results of this function. Comments on the specifics of the function are made throughout the code.
+  
+\singlespacing
+
+\onehalfspacing
+  
+\newpage
+## Movement function
+|        Now that we have determined the direction that each fish should move in, we must make them move that distance. This function is less complicated, and simply adds the distance that the fish can cover in the timestep given its body length and swim speed (in body lengths per second) to the fish's original position, along the calculated bearing.
+\singlespacing
+
+\onehalfspacing
+  
+## Simulate movement
+|        Both functions have been set up. Now, we can use them to run the model for a desired number of time steps. Whereas the schooling model needs a very fine time step (around 2 seconds) for the fish to be able to rapidly respond to each other. The environmental rasters are static for an hour, and therefore having them sense and respond to the environment less frequently should be fine. The choice of a 30 second timestep was arbitrary, and it may be adjusted to optimize the model or produce more ecologically realistic results.  
+|        Though the code has been optimized for computational strain, the model is still fairly complicated. It takes around 11 seconds to run a loop (which represents 30 seconds) of the model for 1000 individuals. We will start by running for a week (or approximately 20,000 time steps of 30 seconds each) and check the results. This should take around 2.5 days of computing time. The end goal is to have three months of modeled time-- June, July, and August, which matches the temporal extent of our empirical data.  
+|        The model begins by making a large blank array which will hold the results for each time step for each individual. Next, the HSI raster is pulled for the hour in which the time step occurs. Then, the sense and move functions are used to send the individuals forward in time and space. The results are stored in the large array. New sense distances and swim speeds are drawn for the individual fish from the same range of values as the initialization. Re-drawing these values adds some stochasticity to the model and prevents the fish from moving the same distance every time step, which is unrealistic. Then, the loop for the current time step is ended and the model is advanced by a time step.  
+
+\singlespacing
+```{r, eval=T}
+# Set sequence of angles that a fish can turn
+# This is 135 deg left or right relative to current bearing
+# For time's sake, we sample in 5deg increments
+# Fish cannot "see" directly behind themselves
+turnseq <- seq(-135, 135, by=5)
+
+# Frequency (in seconds) to update movement
+# s
+
+# Set timesteps
+days <- 1
+desired_hours <- 24 * days
+time_steps <- (60/s)*60*desired_hours
+ts <- 1
+
+# Initialize blank history list by individual
+test <- matrix(nrow=time_steps, ncol=ncol(inds))
+inds_hist <- rep(list(test), n)
+# dim=c(nrow, ncol, time_steps)
+inds_hist <- array(unlist(inds_hist), dim=c(n, ncol(test), time_steps))
+colnames(inds_hist) <- listofthings
+
+listnames <- paste0("ind_", 1:n)
+names(inds_hist) <- listnames
+rm(test, listnames, listofthings)
+
+# Save initial conditions (time 0)
+initcondit <- inds
+
+```
+
+```{r}
+# Initialize progress bar
+#pb <- txtProgressBar(min=0, max=time_steps, initial=0, char="=", style=3)
+
+# Difference for fish to "sense" a difference
+notice <- 0.01
+
+# Simulate time passing
+for(ts in 1:30){
+  
+  # Pull estuary conditions
+  estov           <- hsi[[ceiling(ts/60/(60/s))]]
+  
+  # Have individuals sense surroundings
+  inds <- sense(inds)
+  
+  # Move individuals
+  inds <- movement(inds)
+  
+  # Save outcome, generate new random parameters
+    inds_hist[,,ts] <- inds
+    
+    inds_hist[, "score", ts]     <- extract(hsi[[ceiling(ts/60/(60/s))]], 
+                                      inds_hist[, "cellnum", ts])
+    
+    inds_hist[, "growth",ts]     <- inds_hist[, "score", ts] * 
+                                      (sample(growthpot, size=n,
+                                      replace=T) / steps_in_a_day)
+    
+    inds_hist[, "body_len", ts]  <- inds[,"body_len"] + inds_hist[,"growth",ts]
+    
+    inds_hist[, "sensedist",ts]  <- round(rnorm(n=n, mean=15, sd=7.5),2)
+    inds_hist[, "swimspd", ts]   <- round(rnorm(n=n, mean=1, sd=1),1)
+    
+    for(ids in 1:n){
+      while(inds_hist[ids, "sensedist", ts] < 5 | 
+            inds_hist[ids, "sensedist", ts] > 30){
+        inds_hist[ids, "sensedist", ts] <- round(rnorm(n=1, mean=15, sd=7.5),2)
+      }
+
+      while(inds_hist[ids, "swimspd", ts] <=0 | inds_hist[ids, "swimspd", ts] > 4){
+        inds_hist[ids, "swimspd", ts] <- round(rnorm(n=1, mean=1, sd=1),1)
+      }
+    }
+
+  inds <- inds_hist[,,ts]
+  row.names(inds) <- NULL
+  
+  # Update progress bar
+  #setTxtProgressBar(pb, ts)
+  #getTxtProgressBar(pb)
+  # Close segment of progress bar every loop
+  #close(pb)
+  print(ts)
+}
+```
+\onehalfspacing
+  
+\newpage
+## Conclusions and predictions
+|        I hypothesize that the model will fail to produce aggregations, and certainly will fail to produce polarized-swimming schools akin to the juvenile menhaden schools we have observed in St. Leonard Creek. This is partially due to issues in the modeling parameters-- we do not have a spool-up period, and so the fish are unreasonably started at random. Some of our assumptions along the way may be ecologically unreasonable, although we have tried to reduce this possibility as much as possible through literature review.  
+|        Even if fish were started in clusters, they would not likely retain that spatial structure. The fish sense the environment and move independently of each other, and with variance built in to their "physical" sensing and moving capabilities. The presence of any variance at all is likely realistic, although we may not have the values correct. However, one of the known benefits of schooling is rapid information transfer. While menhaden are not "social" creatures in the way we think of other humans, dolphins, or even dogs, they do still recognize and respond to each other. Without that capability built into the model, the probability of menhaden converging on the same area and orienting themselves in the same direction is greatly reduced.
+
+## Bonus: saving to animation
+\singlespacing
+```{r, eval=F}
+detach("package:chron", unload=T)
+library(lubridate)
+# Subset every fourth step (2 minutes of modeled time)
+ts_subset <- seq(from=1, to = time_steps, by=1)
+
+setwd(paste0("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/",
+             "GIFs/env_mov/subset4"))
+
+pb <- txtProgressBar(min=0, max=length(ts_subset), initial=0, char="=", style=3)
+
+for(i in ts_subset){
+  timest <- "2006-05-31 23:59:30"
+  timest <- as.POSIXct(timest,
+                     format="%Y-%m-%d %H:%M:%S", 
+                     tz="America/New_York")
+  timest <- timest + lubridate::seconds(i*s)
+  timest <- gsub(":", "-", timest)
+  if(nchar(timest)==10){
+    timest <- paste0(timest, " 00-00-00")
+  }
+  png(paste0(timest, ".png"))
+  raster::plot(hsi[[ceiling(i/60/(60/s))]],
+               asp=1,
+               col=cols,
+               xlab="Longitude (m)",
+               ylab="Latitude (m)",
+               zlim=c(minhsi, maxhsi),
+               legend.args=list(text="HSI", side=4, line=2.5),
+               main=paste0(timest))
+
+  points(inds_hist[,"x_loc",i],
+         inds_hist[,"y_loc",i], 
+         pch=19,
+         cex=0.5)
+  dev.off()
+  
+  # Update progress bar
+  setTxtProgressBar(pb, ts)
+  getTxtProgressBar(pb)
+  # Close segment of progress bar every loop
+  close(pb)
+}
+files  <- list.files()
+files <- paste0(getwd(), "/", files)
+
+setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/GIFs")
+gifski(files, "env_mov_10pct.gif", loop = FALSE, delay = 0.01)
+```
