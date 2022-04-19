@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.25)  19 APR 2022 15:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.25)  19 APR 2022 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,8 +357,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count292
 \l__pdf_internal_box=\box56
-)
-No file work_with_ncdf.aux.
+) (work_with_ncdf.aux)
 \openout1 = `work_with_ncdf.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 113.
@@ -506,26 +505,140 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Program Files\MiKTeX 2.9\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+<Corsica_grid.png, id=3, 1021.56656pt x 630.85687pt>
+File: Corsica_grid.png Graphic file (type png)
+<use Corsica_grid.png>
+Package pdftex.def Info: Corsica_grid.png  used on input line 146.
+(pdftex.def)             Requested size: 469.75485pt x 290.0918pt.
 
-LaTeX Warning: File `Corsica_grid.png' not found on input line 146.
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+[][]
+ []
 
+[1
 
-! Package pdftex.def Error: File `Corsica_grid.png' not found: using draft sett
-ing.
+{C:/Users/klank/AppData/Local/MiKTeX/2.9/fonts/map/pdftex/pdftex.map}]
+<StLeonardCreek.png, id=16, 654.19406pt x 653.44125pt>
+File: StLeonardCreek.png Graphic file (type png)
+<use StLeonardCreek.png>
+Package pdftex.def Info: StLeonardCreek.png  used on input line 151.
+(pdftex.def)             Requested size: 469.75162pt x 469.21106pt.
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.146   \includegraphics{Corsica_grid.png}
-                                           
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+[][]
+ []
+
+[2
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.154 
+       <./Corsica_grid.png>] [3
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.155 \newpage
+               <./StLeonardCreek.png>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+61.
+(C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+168.
+(C:\Program Files\MiKTeX 2.9\tex/latex/lm\ts1lmtt.fd
+File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [4]
+Overfull \vbox (1.69919pt too high) detected at line 288
+ []
+
+[5]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 325.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 325.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 325.
+<work_with_ncdf_files/figure-latex/unnamed-chunk-3-1.pdf, id=48, 469.755pt x 32
+5.215pt>
+File: work_with_ncdf_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (typ
+e pdf)
+<use work_with_ncdf_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: work_with_ncdf_files/figure-latex/unnamed-chunk-3-1.pd
+f  used on input line 351.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 351--351
+[][]
+ []
+
+[6] [7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.385 \newpage
+               <./work_with_ncdf_files/figure-latex/unnamed-chunk-3-1.pdf>]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 410.
+
+Underfull \vbox (badness 10000) detected at line 475
+ []
+
+[8] [9] [10]
+Overfull \vbox (1.24095pt too high) detected at line 685
+ []
+
+[11]
+<work_with_ncdf_files/figure-latex/unnamed-chunk-9-1.pdf, id=97, 469.755pt x 32
+5.215pt>
+File: work_with_ncdf_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (typ
+e pdf)
+<use work_with_ncdf_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: work_with_ncdf_files/figure-latex/unnamed-chunk-9-1.pd
+f  used on input line 688.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 688--688
+[][]
+ []
+
+[12] [13
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.696 \newpage
+               <./work_with_ncdf_files/figure-latex/unnamed-chunk-9-1.pdf>]
+Underfull \vbox (badness 10000) detected at line 811
+ []
+
+[14] [15] [16] (work_with_ncdf.aux) ) 
 Here is how much of TeX's memory you used:
- 13723 strings out of 478584
- 217086 string characters out of 2852328
- 541550 words of memory out of 3000000
- 31648 multiletter control sequences out of 15000+600000
- 495253 words of font info for 68 fonts, out of 8000000 for 9000
+ 14000 strings out of 478584
+ 221519 string characters out of 2852328
+ 553400 words of memory out of 3000000
+ 31799 multiletter control sequences out of 15000+600000
+ 518361 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,77p,1013b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1013b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
+ps/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{
+C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi
+10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi7.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmtti10.pfb>
+Output written on work_with_ncdf.pdf (16 pages, 4222605 bytes).
+PDF statistics:
+ 235 PDF objects out of 1000 (max. 8388607)
+ 47 named destinations out of 1000 (max. 500000)
+ 24701 words of extra memory for PDF output out of 24883 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
