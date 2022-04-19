@@ -35,9 +35,184 @@ set.seed(123)
 # Load self-made functions
 range01 <- function(x){(x-min(x))/(max(x)-min(x))}
 ```
+|        We will now do a subset of simple visual checks for correlation between the environmental inputs of our habitat suitability model. This will be completed by simply leaving one environmental variable out of the overall HSI calculation at a time. If there is a strong correlation between two of the environmental variables, leaving one out will look exactly the same as leaving the other out. For example, if temperature and salinity are highly correlated (which we expect), removing salinity from the HSI model will result in a raster that looks very similar to the resulting raster from removing temperature.
 
+## Loading data
+\singlespacing
+```{r}
+# Load data
+load(paste0('G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/',
+            'Raster_Data/ncdf_output.RData'))
+
+# Fix time
+time$timestamp <- time$timestamp + lubridate::hours(3)
+
+# Create subset of times to test
+timesubs <- seq(1, 2206, by=240)
+
+# Set names of variables
+env <- names(env)
+
+# Load SI rasters
+for(i in 1:length(env)){
+  char <- env[i]
+  char_rast <- readRDS(paste0("G:/My Drive/Documents_Backup/Modeling/",
+                              "Modeling_RCode/Raster_Data/HSI/",
+                              char, "_hsi_rast.RDS"))
+  char_rast <- assign(paste0(char, "_si"), char_rast)
+}
+
+# Gather SI rasters into list
+SI_list <- list(sal_si, tem_si, dox_si, chl_si, tdep_si)
+names(SI_list) <- env
+```
+
+## Remove items sequentially
+```{r}
+no_sal  <- SI_list[-1]
+no_tem  <- SI_list[-2]
+no_dox  <- SI_list[-3]
+no_chl  <- SI_list[-4]
+no_tdep <- SI_list[-5]
+
+# Remove intermediates
+rm(sal_si, tem_si, dox_si, chl_si, tdep_si)
+```
+
+## Calculate leave-one-out HSI results
+```{r}
+# Allocate blank list - all rasters
+HSI_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  HSI_rast[[i]] <- raster::overlay(SI_list[['sal']][[j]],
+                           SI_list[['tem']][[j]],
+                           SI_list[['dox']][[j]],
+                           SI_list[['chl']][[j]],
+                           SI_list[['tdep']][[j]],
+                           fun=psych::geometric.mean)
+}
+
+# Allocate blank list - no salinity
+nosal_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  nosal_rast[[i]] <- raster::overlay(#no_sal[['sal']][[j]],
+                                     no_sal[['tem']][[j]],
+                                     no_sal[['dox']][[j]],
+                                     no_sal[['chl']][[j]],
+                                     no_sal[['tdep']][[j]],
+                                   fun=psych::geometric.mean)
+}
+
+# Allocate blank list - no temperature
+notem_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  notem_rast[[i]] <- raster::overlay(no_tem[['sal']][[j]],
+                                     #no_sal[['tem']][[j]],
+                                     no_tem[['dox']][[j]],
+                                     no_tem[['chl']][[j]],
+                                     no_tem[['tdep']][[j]],
+                                  fun=psych::geometric.mean)
+}
+
+# Allocate blank list - no dissolved oxygen
+nodox_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  nodox_rast[[i]] <- raster::overlay(no_dox[['sal']][[j]],
+                                     no_dox[['tem']][[j]],
+                                     #no_tem[['dox']][[j]],
+                                     no_dox[['chl']][[j]],
+                                     no_dox[['tdep']][[j]],
+                                     fun=psych::geometric.mean)
+}
+
+# Allocate blank list - no chlorophyll
+nochl_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  nochl_rast[[i]] <- raster::overlay(no_chl[['sal']][[j]],
+                                     no_chl[['tem']][[j]],
+                                     no_chl[['dox']][[j]],
+                                     #no_dox[['chl']][[j]],
+                                     no_chl[['tdep']][[j]],
+                                     fun=psych::geometric.mean)
+}
+
+# Allocate blank list - no depth
+notdep_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(timesubs)){
+  j <- timesubs[i]
+  # Overlay all rasters and take geometric mean HSI per cell
+  notdep_rast[[i]] <- raster::overlay(no_tdep[['sal']][[j]],
+                                     no_tdep[['tem']][[j]],
+                                     no_tdep[['dox']][[j]],
+                                     no_tdep[['chl']][[j]],
+                                     #no_chl[['tdep']][[j]],
+                                     fun=psych::geometric.mean)
+}
+ # Combine all leave-one-out results into list
+rastcombine <- list(HSI_rast, nochl_rast, nodox_rast, nosal_rast, 
+                    notdep_rast, notem_rast)
+names(rastcombine) <- c("All values", "No chl", "No dox", "No sal", 
+                        "No dep", "No temp")
+```
+
+## Plot and visually inspect results
+```{r}
+for(k in 1:length(timesubs)){
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[k]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+}
+```
 
 \onehalfspacing
 \newpage
+## Results
+|        This subset of ten timestamps shows that dissolved oxygen is often the "limiting factor" in habitat suitability. The raster that has no dissolved oxygen input usually has the highest average HSI. Chlorophyll is also a frequent limiting factor, though low chlorophyll values have less of an ability to "tank" the overall HSI as compared to dissolved oxygen. Depth is an important limitation at low tides, and in all other rasters you can see a faint outline of the "shoulders" of the river where the water rapidly shallows out to less than 1m and therefore becomes highly unsuitable.  
+|        Temperature and salinity have much less of an impact on HSI. This shouldn't be surprising-- they're usually a reflection of large-scale processes like tides and seasonal warming. The overall range of temperature and salinity both within a single timestep and over the entire sampling season are limited compared to the other environmental inputs. From this subset, it also appears as though they are highly correlated. One should therefore be removed from the HSI model, as we are essentially "double-counting" the importance of the tidal process in structuring menhaden movement and schooling. Removing salinity would make more sense than removing temperature. The range of salinity in this modeled time period is not likely wide enough to cause noticeable physiological or behavioral changes in menhaden. The range of temperature, on the other hand, is wide enough to cause these changes.  
+|        We will now save the HSI model without salinity.
+
+\singlespacing
+```{r}
+# Allocate blank list - no salinity
+nosal_rast <-  vector(mode="list", length=length(timesubs))
+# Loop through SI rasters to create HSI
+for(i in 1:length(SI_list[[1]])){
+  # Overlay all rasters and take geometric mean HSI per cell
+  nosal_rast[[i]] <- raster::overlay(#no_sal[['sal']][[i]],
+                                     no_sal[['tem']][[i]],
+                                     no_sal[['dox']][[i]],
+                                     no_sal[['chl']][[i]],
+                                     no_sal[['tdep']][[i]],
+                                   fun=psych::geometric.mean)
+  print(i)
+}
+
+# Save results
+setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/Raster_Data/HSI/results/")
+saveRDS(no_sal, file='HSI_nosal_rast_results.rds')
+```
+\onehalfspacing
+
 ## Conclusion
 |        These rasters are the final result of the pre-processing. We can now feed these results into the individual-based model of juvenile menhaden movement in which the menhaden sense and respond to their surrounding environment. A selection of HSI rasters will be animated in a GIF to visualize spatio-temporal suitability trends. 
