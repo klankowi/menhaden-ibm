@@ -58,7 +58,7 @@ rm(r, gri)
 # Load HSI
 hsi <- readRDS(paste0("G:/My Drive/Documents_Backup/Modeling/",
                       "Modeling_RCode/Raster_Data/HSI/results/",
-                      "HSI_rast_short_gm.rds"))
+                      "HSI_nosal_rast_results.rds"))
 
 # Determine universal spacetime HSI range
 newlist <- vector(mode="list", length=length(hsi))
