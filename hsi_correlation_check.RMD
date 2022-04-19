@@ -1,0 +1,43 @@
+---
+title: "Habitat Suitability Correlation"
+author: "Katie Lankowicz"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: pdf_document
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+    - \usepackage{float}
+sansfont: Calibri
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+# Clear workspace
+rm(list=ls())
+
+#### Load libraries ####
+library(raster)
+library(dismo)
+library(dplyr)
+library(gstat)
+library(sp)
+library(SiMRiv)
+library(adehabitatLT)
+library(truncnorm)
+library(donut)
+library(RANN)
+library(nabor)
+library(plotrix)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Load self-made functions
+range01 <- function(x){(x-min(x))/(max(x)-min(x))}
+```
+
+
+\onehalfspacing
+\newpage
+## Conclusion
+|        These rasters are the final result of the pre-processing. We can now feed these results into the individual-based model of juvenile menhaden movement in which the menhaden sense and respond to their surrounding environment. A selection of HSI rasters will be animated in a GIF to visualize spatio-temporal suitability trends. 

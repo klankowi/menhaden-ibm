@@ -314,15 +314,15 @@ rm(sal_curve, tem_curve, dox_curve, chl_curve, tdep_curve)
   
 \onehalfspacing
 ## Loading environmental rasters
-|        In the previous document, I went through the process of creating inverse distance weighted interpolated rasters of these environmental conditions through the model space at each time step. Rasters for the month of June will be loaded below.  
+|        In the previous document, I went through the process of creating inverse distance weighted interpolated rasters of these environmental conditions through the model space at each time step. Rasters will be loaded below.  
 \singlespacing
 ```{r}
 # Load environmental raster lists
 for(i in 1:length(env)){
   char <- names(env[i])
   char_rast <- readRDS(paste0("G:/My Drive/Documents_Backup/Modeling/",
-               "Modeling_RCode/Raster_Data/shortcut/",
-               char, "_rast_short.RDS"))
+               "Modeling_RCode/Raster_Data/",
+               char, "_rast.RDS"))
   char_rast <- assign(paste0(char, "_rast"), char_rast)
 }
 
@@ -390,7 +390,7 @@ for(q in 1:length(env)){
     
   }
   # Save output
-  setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/Raster_Data/HSI")
+  setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/Raster_Data/HSI/")
   saveRDS(val_rast, file=paste0(char,'_hsi_rast.rds'))
   rm(char, val_rast, val_curv)
 }
@@ -431,8 +431,8 @@ env <- names(env)
 for(i in 1:length(env)){
   char <- env[i]
   char_rast <- readRDS(paste0("G:/My Drive/Documents_Backup/Modeling/",
-                              "Modeling_RCode/Raster_Data/HSI/short/",
-                              char, "_hsi_rast_short.RDS"))
+                              "Modeling_RCode/Raster_Data/HSI/",
+                              char, "_hsi_rast.RDS"))
   char_rast <- assign(paste0(char, "_si"), char_rast)
 }
 
@@ -455,15 +455,14 @@ for(i in 1:length(SI_list[[1]])){
                            SI_list[['chl']][[i]],
                            SI_list[['tdep']][[i]],
                            fun=psych::geometric.mean)
-  print(i)
 }
 
 # Save results
-setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/Raster_Data/HSI/results")
-saveRDS(HSI_rast, file='HSI_rast_short_gm.rds')
+setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/Raster_Data/HSI/results/")
+saveRDS(HSI_rast, file='HSI_rast_results.rds')
 ```
   
 \onehalfspacing
 \newpage
 ## Conclusion
-|        These rasters are the final result of the pre-processing. We can now feed these results into the individual-based model of juvenile menhaden movement in which the menhaden sense and respond to their surrounding environment. A selection of HSI rasters will be animated in a GIF to visualize spatio-temporal suitability trends. 
+|        There is only one more step in pre-processing. It is possible that one or more of these input environmental conditions are collinear, which would result in a "double-counting" of importance for what realistically represents only one process affecting the environment. The next document, "Habitat Suitability Correlation," will complete simple visual inspections of the correlation between all environmental inputs.
