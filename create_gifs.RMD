@@ -27,11 +27,11 @@ set.seed(123)
 \singlespacing
 ```{r, eval=F}
 # Load data
-load("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/2022_Apr19_1740.Rdata")
+load("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/2022_Apr20_0832.Rdata")
 
 # Set PNG save location
 setwd(paste0("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/",
-             "GIFs/env_mov/subset_Apr19_1740"))
+             "GIFs/sch_mov/subset_Apr20_0832"))
 
 # Initialize progress bar
 pb <- txtProgressBar(min=0, max=length(time_steps), initial=0, char="=", style=3)
@@ -39,7 +39,13 @@ pb <- txtProgressBar(min=0, max=length(time_steps), initial=0, char="=", style=3
 # Loop through time steps
 for(i in 1:time_steps){
   # Initialize timestamp
-  timest <- "2006-05-31 23:59:30"
+  if(s==30){
+    timest <- "2006-05-31 23:59:30"
+  }
+  if(s==2){
+    timest <- "2006-05-31 23:59:58"
+  }
+
   timest <- as.POSIXct(timest,
                      format="%Y-%m-%d %H:%M:%S", 
                      tz="America/New_York")
@@ -50,20 +56,34 @@ for(i in 1:time_steps){
   }
   # Open PNG
   png(paste0(timest, ".png"))
-  # Plot raster
-  raster::plot(hsi[[ceiling(i/60/(60/s))]],
-               asp=1,
-               col=cols,
-               xlab="Longitude (m)",
-               ylab="Latitude (m)",
-               zlim=c(minhsi, maxhsi),
-               legend.args=list(text="HSI", side=4, line=2.5),
-               main=paste0(timest))
+  if(s==30){
+    # Plot raster for env move
+    raster::plot(hsi[[ceiling(i/60/(60/s))]],
+                 asp=1,
+                 col=cols,
+                 xlab="Longitude (m)",
+                 ylab="Latitude (m)",
+                 zlim=c(minhsi, maxhsi),
+                 legend.args=list(text="HSI", side=4, line=2.5),
+                 main=paste0(timest))
+  }
+  if(s==2){
+    # Plot raster for sch move
+    raster::plot(r,
+                 asp=1,
+                 col='lightgray',
+                 xlab="Longitude (m)",
+                 ylab="Latitude (m)",
+                 legend=FALSE,
+                 main=paste0(timest)
+                 )
+  }
+
   # Plot fish
   points(inds_hist[,"x_loc",i],
          inds_hist[,"y_loc",i], 
          pch=19,
-         cex=0.5)
+         cex=0.25)
   # Close PNG
   dev.off()
   
@@ -82,5 +102,5 @@ files <- paste0(getwd(), "/", files)
 setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/GIFs/")
 
 # Convert PNGs to GIF
-gifski(files, "env_mov_Apr19_1740.gif", loop = FALSE, delay = 0.01)
+gifski(files, "sch_mov_Apr20_0832.gif", loop = FALSE, delay = 0.01)
 ```
