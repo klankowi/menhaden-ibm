@@ -280,9 +280,6 @@ rm(b,c,h,l,m,p,u,w, n.col, n.row)
 # Fish cannot "see" directly behind themselves
 turnseq <- seq(-135, 135, by=5)
 
-# Frequency (in seconds) to update movement
-# s
-
 # Set timesteps
 days <- 1
 desired_hours <- 24 * days
@@ -358,7 +355,7 @@ for(ts in 1:30){
   #getTxtProgressBar(pb)
   # Close segment of progress bar every loop
   #close(pb)
-  print(ts)
+  #print(ts)
 }
 ```
 \onehalfspacing
@@ -367,55 +364,3 @@ for(ts in 1:30){
 ## Conclusions and predictions
 |        I hypothesize that the model will fail to produce aggregations, and certainly will fail to produce polarized-swimming schools akin to the juvenile menhaden schools we have observed in St. Leonard Creek. This is partially due to issues in the modeling parameters-- we do not have a spool-up period, and so the fish are unreasonably started at random. Some of our assumptions along the way may be ecologically unreasonable, although we have tried to reduce this possibility as much as possible through literature review.  
 |        Even if fish were started in clusters, they would not likely retain that spatial structure. The fish sense the environment and move independently of each other, and with variance built in to their "physical" sensing and moving capabilities. The presence of any variance at all is likely realistic, although we may not have the values correct. However, one of the known benefits of schooling is rapid information transfer. While menhaden are not "social" creatures in the way we think of other humans, dolphins, or even dogs, they do still recognize and respond to each other. Without that capability built into the model, the probability of menhaden converging on the same area and orienting themselves in the same direction is greatly reduced.
-
-## Bonus: saving to animation
-\singlespacing
-```{r, eval=F}
-detach("package:chron", unload=T)
-library(lubridate)
-# Subset every fourth step (2 minutes of modeled time)
-ts_subset <- seq(from=1, to = time_steps, by=1)
-
-setwd(paste0("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/",
-             "GIFs/env_mov/subset4"))
-
-pb <- txtProgressBar(min=0, max=length(ts_subset), initial=0, char="=", style=3)
-
-for(i in ts_subset){
-  timest <- "2006-05-31 23:59:30"
-  timest <- as.POSIXct(timest,
-                     format="%Y-%m-%d %H:%M:%S", 
-                     tz="America/New_York")
-  timest <- timest + lubridate::seconds(i*s)
-  timest <- gsub(":", "-", timest)
-  if(nchar(timest)==10){
-    timest <- paste0(timest, " 00-00-00")
-  }
-  png(paste0(timest, ".png"))
-  raster::plot(hsi[[ceiling(i/60/(60/s))]],
-               asp=1,
-               col=cols,
-               xlab="Longitude (m)",
-               ylab="Latitude (m)",
-               zlim=c(minhsi, maxhsi),
-               legend.args=list(text="HSI", side=4, line=2.5),
-               main=paste0(timest))
-
-  points(inds_hist[,"x_loc",i],
-         inds_hist[,"y_loc",i], 
-         pch=19,
-         cex=0.5)
-  dev.off()
-  
-  # Update progress bar
-  setTxtProgressBar(pb, ts)
-  getTxtProgressBar(pb)
-  # Close segment of progress bar every loop
-  close(pb)
-}
-files  <- list.files()
-files <- paste0(getwd(), "/", files)
-
-setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/GIFs")
-gifski(files, "env_mov_10pct.gif", loop = FALSE, delay = 0.01)
-```

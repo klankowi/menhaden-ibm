@@ -240,7 +240,7 @@ rm(additive)
 ```
 \newpage
 ```{r}
-#summary(inds)
+summary(inds)
 ```
 \onehalfspacing
 \newpage
@@ -249,14 +249,14 @@ rm(additive)
 \singlespacing
 ```{r, fig.width=8.5, fig.height=11}
 # Plot original positions of fish
-# plot(r, 
-#      asp=1,
-#      col="lightgray",
-#      xlab='Longitude(m)',
-#      ylab='Latitute (m)',
-#      legend=FALSE
-#      )
-# points(x = inds[,"x_loc"], y = inds[,"y_loc"], pch = 20, cex = 0.3)
+plot(r, 
+    asp=1,
+    col="lightgray",
+    xlab='Longitude(m)',
+    ylab='Latitute (m)',
+    legend=FALSE
+    )
+points(x = inds[,"x_loc"], y = inds[,"y_loc"], pch = 20, cex = 0.3)
 ```
 \onehalfspacing
   
@@ -287,7 +287,8 @@ source("movement_cylinder_school.R")
 \singlespacing
 ```{r, eval=T}
 # Set timesteps
-desired_hours <- 1*24
+days <- 0.25
+desired_hours <- 24 * days
 time_steps <- (60/s)*60*desired_hours
 ts <- 1
 
@@ -352,7 +353,7 @@ for(ts in 1:time_steps){
   #getTxtProgressBar(pb)
   # Close segment of progress bar every loop
   #close(pb)
-  print(ts)
+  #print(ts)
 }
 ```
 \onehalfspacing
@@ -367,48 +368,3 @@ for(ts in 1:time_steps){
 - schools in 6 exhibited clustering or repulsion and were best modeled with an inhomogeneous Poisson point process (the spatial covariate in these being the y-coordinate in 3 and depth in 3)  
   
 |        Once this model finishes running, I intend to identify the resulting schools. The empirical data gave us a sense of the school size and density, so we can use those values to separate distinct schools. I also want to run "digital transects" through the model space on occasion. This would be a subset of the model space of the dimensions of the ARIS field of view, and only the fish within the "digital transect" would be considered in analyses of schools. I suspect that the subset will not affect the results of point pattern modeling of the digital schools, but that it will affect the number and average size of schools that we "see." Comparing the results of the full model to the results of the "digital transect" subset could be an interesting way to approximate the population size within St. Leonard Creek given the subset of schools that we sampled with the ARIS.
-\newpage
-## Bonus: saving to animation
-\singlespacing
-```{r, eval=F}
-detach("package:chron", unload=T)
-library(lubridate)
-setwd(paste0("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/",
-             "GIFs/sch_mov/subset_6"))
-
-timecells <- seq(1, 14012, by=30)
-
-for(i in timecells){
-  timest <- '2006-05-31 23:59:58'
-  timest <- as.POSIXct(timest,
-                     format="%Y-%m-%d %H:%M:%S", 
-                     tz="America/New_York")
-  timest <- timest + lubridate::seconds(i*s)
-  timest <- gsub(":", "-", timest)
-    if(nchar(timest)==10){
-    timest <- paste0(timest, " 00-00-00")
-  }
-  png(paste0(timest, '.png'))
-  raster::plot(r,
-               asp=1,
-               col="lightgray",
-               xlab='Longitude (m)',
-               ylab='Latitude (m)',
-               #zlim=c(minhsi, maxhsi),
-               legend=FALSE,
-               main=paste0(timest))
-
-  points(inds_hist[,"x_loc", i],
-         inds_hist[,"y_loc", i], 
-         pch=19,
-         cex=0.5,
-         col=scales::alpha("black", 0.4))
-  dev.off()
-}
-files  <- list.files()
-files <- paste0(getwd(), '/', files)
-
-library(gifski)
-setwd("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/GIFs")
-gifski(files, "sch_mov_6.gif", loop = FALSE, delay = 0.01)
-```
