@@ -6,6 +6,7 @@ output: pdf_document
 header-includes:
     - \usepackage{setspace}\onehalfspacing
     - \usepackage{float}
+    - \usepackage{pdflscape}
 sansfont: Calibri
 ---
 
@@ -171,29 +172,128 @@ names(rastcombine) <- c("All values", "No chl", "No dox", "No sal",
                         "No dep", "No temp")
 ```
 
-## Plot and visually inspect results
-```{r}
-for(k in 1:length(timesubs)){
+\newpage
+\begin{landscape}
+```{r, echo=F}
   par(mfrow=c(2,3))
   for(i in 1:length(rastcombine)){
-       raster::plot(rastcombine[[i]][[k]],
+       raster::plot(rastcombine[[i]][[1]],
          zlim=c(0, 1),
          main=paste0(names(rastcombine[i])),
          axes=F,
          box=F) 
   } 
-}
 ```
-
-\onehalfspacing
 \newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[2]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[3]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[4]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[5]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[6]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[7]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[8]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[9]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\newpage
+```{r, echo=F}
+  par(mfrow=c(2,3))
+  for(i in 1:length(rastcombine)){
+       raster::plot(rastcombine[[i]][[10]],
+         zlim=c(0, 1),
+         main=paste0(names(rastcombine[i])),
+         axes=F,
+         box=F) 
+  } 
+```
+\end{landscape}
+
+\newpage
+\onehalfspacing
 ## Results
 |        This subset of ten timestamps shows that dissolved oxygen is often the "limiting factor" in habitat suitability. The raster that has no dissolved oxygen input usually has the highest average HSI. Chlorophyll is also a frequent limiting factor, though low chlorophyll values have less of an ability to "tank" the overall HSI as compared to dissolved oxygen. Depth is an important limitation at low tides, and in all other rasters you can see a faint outline of the "shoulders" of the river where the water rapidly shallows out to less than 1m and therefore becomes highly unsuitable.  
 |        Temperature and salinity have much less of an impact on HSI. This shouldn't be surprising-- they're usually a reflection of large-scale processes like tides and seasonal warming. The overall range of temperature and salinity both within a single timestep and over the entire sampling season are limited compared to the other environmental inputs. From this subset, it also appears as though they are highly correlated. One should therefore be removed from the HSI model, as we are essentially "double-counting" the importance of the tidal process in structuring menhaden movement and schooling. Removing salinity would make more sense than removing temperature. The range of salinity in this modeled time period is not likely wide enough to cause noticeable physiological or behavioral changes in menhaden. The range of temperature, on the other hand, is wide enough to cause these changes.  
-|        We will now save the HSI model without salinity.
+|        We will save the HSI model without salinity and use that moving forward.
 
 \singlespacing
-```{r, eval=F}
+```{r, eval=F, echo=F}
 # Allocate blank list - no salinity
 nosal_rast <-  vector(mode="list", length=length(timesubs))
 # Loop through SI rasters to create HSI
@@ -205,7 +305,7 @@ for(i in 1:length(SI_list[[1]])){
                                      no_sal[['chl']][[i]],
                                      no_sal[['tdep']][[i]],
                                    fun=psych::geometric.mean)
-  print(i)
+  #print(i)
 }
 
 # Save results

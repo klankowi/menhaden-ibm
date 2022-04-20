@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.25)  19 APR 2022 16:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.4.20)  20 APR 2022 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **./hsi_correlation_check.tex
 (hsi_correlation_check.tex
 LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2022-02-21> (C:\Program Files\MiKTeX 2.9\tex/latex/base\a
+L3 programming layer <2022-04-10> (C:\Program Files\MiKTeX 2.9\tex/latex/base\a
 rticle.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\size10.clo
@@ -136,7 +136,7 @@ Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 ) (C:\Program Files\MiKTeX 2.9\tex/latex/microtype\microtype.sty
-Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
+Package: microtype 2022/03/14 v3.0d Micro-typographical refinements (RS)
 (C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks23
@@ -145,24 +145,25 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count271
 )
 \MT@toks=\toks24
-\MT@count=\count272
 \MT@tempbox=\box52
-LaTeX Info: Redefining \leftprotrusion on input line 1010.
-LaTeX Info: Redefining \rightprotrusion on input line 1018.
-LaTeX Info: Redefining \textls on input line 1173.
+\MT@count=\count272
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1027.
+LaTeX Info: Redefining \leftprotrusion on input line 1028.
+LaTeX Info: Redefining \rightprotrusion on input line 1036.
+LaTeX Info: Redefining \textls on input line 1195.
 \MT@outer@kern=\dimen148
-LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
+LaTeX Info: Redefining \textmicrotypecontext on input line 1781.
 \MT@listname@count=\count273
 (C:\Program Files\MiKTeX 2.9\tex/latex/microtype\microtype-pdftex.def
-File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
+File: microtype-pdftex.def 2022/03/14 v3.0d Definitions specific to pdftex (RS)
 
-LaTeX Info: Redefining \lsstyle on input line 897.
-LaTeX Info: Redefining \lslig on input line 897.
+LaTeX Info: Redefining \lsstyle on input line 900.
+LaTeX Info: Redefining \lslig on input line 900.
 \MT@outer@space=\skip52
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 (C:\Program Files\MiKTeX 2.9\tex/latex/microtype\microtype.cfg
-File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
+File: microtype.cfg 2022/03/14 v3.0d microtype main configuration file (RS)
 )) (C:\Program Files\MiKTeX 2.9\tex/latex/parskip\parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 (C:\Program Files\MiKTeX 2.9\tex/latex/kvoptions\kvoptions.sty
@@ -197,7 +198,7 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )) (C:\Program Files\MiKTeX 2.9\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
+Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
 (C:\Program Files\MiKTeX 2.9\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -222,12 +223,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 \Hy@linkcounter=\count274
 \Hy@pagecounter=\count275
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
-nguages
 ) (C:\Program Files\MiKTeX 2.9\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (C:\Program Files\MiKTeX 2.9\tex/generic/etexcmds\etexcmds.sty
@@ -235,20 +233,20 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count276
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\puenc.def
-File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `unicode' set `true' on input line 4073.
-Package hyperref Info: Hyper figures OFF on input line 4192.
-Package hyperref Info: Link nesting OFF on input line 4197.
-Package hyperref Info: Hyper index ON on input line 4200.
-Package hyperref Info: Plain pages OFF on input line 4207.
-Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Option `unicode' set `true' on input line 4018.
+Package hyperref Info: Hyper figures OFF on input line 4137.
+Package hyperref Info: Link nesting OFF on input line 4142.
+Package hyperref Info: Hyper index ON on input line 4145.
+Package hyperref Info: Plain pages OFF on input line 4152.
+Package hyperref Info: Backreferencing OFF on input line 4157.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4445.
+Package hyperref Info: Bookmarks ON on input line 4390.
 \c@Hy@tempcnt=\count277
-LaTeX Info: Redefining \url on input line 4804.
+LaTeX Info: Redefining \url on input line 4749.
 \XeTeXLinkMargin=\dimen150
 (C:\Program Files\MiKTeX 2.9\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -259,15 +257,15 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 \Fld@menulength=\count278
 \Field@Width=\dimen151
 \Fld@charsize=\dimen152
-Package hyperref Info: Hyper figures OFF on input line 6076.
-Package hyperref Info: Link nesting OFF on input line 6081.
-Package hyperref Info: Hyper index ON on input line 6084.
-Package hyperref Info: backreferencing OFF on input line 6091.
-Package hyperref Info: Link coloring OFF on input line 6096.
-Package hyperref Info: Link coloring with OCG OFF on input line 6101.
-Package hyperref Info: PDF/A mode OFF on input line 6106.
-LaTeX Info: Redefining \ref on input line 6146.
-LaTeX Info: Redefining \pageref on input line 6150.
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+LaTeX Info: Redefining \ref on input line 6097.
+LaTeX Info: Redefining \pageref on input line 6101.
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
@@ -278,7 +276,7 @@ package with kernel methods
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
+File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
@@ -317,7 +315,7 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@dimlist=\toks25
 (C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.cfg)) (C:\Program File
 s\MiKTeX 2.9\tex/latex/fancyvrb\fancyvrb.sty
-Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
+Package: fancyvrb 2022/04/12 4.2 verbatim text (tvz,hv)
 \FV@CodeLineNo=\count288
 \FV@InFile=\read2
 \FV@TabBox=\box53
@@ -353,37 +351,43 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box54
 \@float@everytoks=\toks27
 \@floatcapt=\box55
+) (C:\Program Files\MiKTeX 2.9\tex/latex/pdflscape\pdflscape.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ) (C:\Program Files\MiKTeX 2.9\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2022-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count292
 \l__pdf_internal_box=\box56
 ) (hsi_correlation_check.aux)
 \openout1 = `hsi_correlation_check.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Info: Redefining \microtypecontext on input line 113.
-Package microtype Info: Applying patch `item' on input line 113.
-Package microtype Info: Applying patch `toc' on input line 113.
-Package microtype Info: Applying patch `eqnum' on input line 113.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 114.
+LaTeX Font Info:    ... okay on input line 114.
+LaTeX Info: Redefining \microtypecontext on input line 114.
+Package microtype Info: Applying patch `item' on input line 114.
+Package microtype Info: Applying patch `toc' on input line 114.
+Package microtype Info: Applying patch `eqnum' on input line 114.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 113.
+Package microtype Warning: Unable to apply patch `footnote' on input line 114.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -391,7 +395,7 @@ Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 113.
+LaTeX Info: Redefining \showhyphens on input line 114.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -418,7 +422,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (C:\Program Files\MiKTeX 2.9\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 113.
+Package hyperref Info: Link coloring OFF on input line 114.
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (C:\Program Files\MiKTeX 2.9\tex/latex/refcount\refcount.sty
@@ -428,9 +432,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count299
 )
-LaTeX Info: Redefining \ref on input line 113.
-LaTeX Info: Redefining \pageref on input line 113.
-LaTeX Info: Redefining \nameref on input line 113.
+LaTeX Info: Redefining \ref on input line 114.
+LaTeX Info: Redefining \pageref on input line 114.
+LaTeX Info: Redefining \nameref on input line 114.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -466,39 +470,39 @@ LaTeX Info: Redefining \nameref on input line 113.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-15.
+16.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-15.
+16.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-115.
+116.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-115.
+116.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 115.
+(Font)              <12> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 115.
+(Font)              <8> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 115.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 115
+(Font)              <6> on input line 116.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 116
 .
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Program Files\MiKTeX 2.9\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 115
+LaTeX Font Info:    Trying to load font information for U+msb on input line 116
 .
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -506,174 +510,133 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-32.
+33.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-134.
+135.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 147.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 148.
 [1
 
 {C:/Users/klank/AppData/Local/MiKTeX/2.9/fonts/map/pdftex/pdftex.map}] [2] [3]
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf, id=33, 469.755
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf, id=31, 469.755
 pt x 325.215pt>
 File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf Graphic fi
 le (type pdf)
 <use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-1.pdf  used on input line 293.
+-4-1.pdf  used on input line 278.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-2.pdf, id=34, 469.755
+[4
+
+ <./hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-5-1.pdf, id=54, 469.755
 pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-2.pdf Graphic fi
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-5-1.pdf Graphic fi
 le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-2.pdf>
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-2.pdf  used on input line 294.
+-5-1.pdf  used on input line 281.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-3.pdf, id=35, 469.755
+[5 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-6-1.pdf, id=77, 469.755
 pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-3.pdf Graphic fi
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-6-1.pdf Graphic fi
 le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-3.pdf>
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-3.pdf  used on input line 295.
+-6-1.pdf  used on input line 284.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-4.pdf, id=36, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-4.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-4.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-4.pdf  used on input line 296.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-5.pdf, id=37, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-5.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-5.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-5.pdf  used on input line 297.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-6.pdf, id=38, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-6.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-6.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-6.pdf  used on input line 298.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-7.pdf, id=39, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-7.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-7.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-7.pdf  used on input line 299.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-8.pdf, id=40, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-8.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-8.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-8.pdf  used on input line 300.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-9.pdf, id=41, 469.755
-pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-9.pdf Graphic fi
-le (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-9.pdf>
-Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-9.pdf  used on input line 301.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<hsi_correlation_check_files/figure-latex/unnamed-chunk-4-10.pdf, id=42, 469.75
+[6 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-6-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-7-1.pdf, id=100, 469.75
 5pt x 325.215pt>
-File: hsi_correlation_check_files/figure-latex/unnamed-chunk-4-10.pdf Graphic f
-ile (type pdf)
-<use hsi_correlation_check_files/figure-latex/unnamed-chunk-4-10.pdf>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-7-1.pdf Graphic fi
+le (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
--4-10.pdf  used on input line 302.
+-7-1.pdf  used on input line 287.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[7 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-8-1.pdf, id=124, 469.75
+5pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-8-1.pdf Graphic fi
+le (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-8-1.pdf  used on input line 290.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[8 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-8-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-9-1.pdf, id=147, 469.75
+5pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-9-1.pdf Graphic fi
+le (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-9-1.pdf  used on input line 293.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[9 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-9-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-10-1.pdf, id=170, 469.7
+55pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-10-1.pdf Graphic f
+ile (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-10-1.pdf  used on input line 296.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[10 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-11-1.pdf, id=193, 469.7
+55pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-11-1.pdf Graphic f
+ile (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-11-1.pdf  used on input line 299.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[11 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-11-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-12-1.pdf, id=216, 469.7
+55pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-12-1.pdf Graphic f
+ile (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-12-1.pdf  used on input line 302.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[12 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-12-1.pdf>]
+<hsi_correlation_check_files/figure-latex/unnamed-chunk-13-1.pdf, id=239, 469.7
+55pt x 325.215pt>
+File: hsi_correlation_check_files/figure-latex/unnamed-chunk-13-1.pdf Graphic f
+ile (type pdf)
+<use hsi_correlation_check_files/figure-latex/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: hsi_correlation_check_files/figure-latex/unnamed-chunk
+-13-1.pdf  used on input line 305.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[13 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-13-1.pdf>] [14
 
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--303
-[]
- []
-
-[4 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-4-1.pdf>] [5 <./hs
-i_correlation_check_files/figure-latex/unnamed-chunk-4-2.pdf>] [6 <./hsi_correl
-ation_check_files/figure-latex/unnamed-chunk-4-3.pdf>] [7 <./hsi_correlation_ch
-eck_files/figure-latex/unnamed-chunk-4-4.pdf>] [8 <./hsi_correlation_check_file
-s/figure-latex/unnamed-chunk-4-5.pdf>] [9 <./hsi_correlation_check_files/figure
--latex/unnamed-chunk-4-6.pdf>] [10 <./hsi_correlation_check_files/figure-latex/
-unnamed-chunk-4-7.pdf>] [11 <./hsi_correlation_check_files/figure-latex/unnamed
--chunk-4-8.pdf>] [12 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-
-4-9.pdf>] [13 <./hsi_correlation_check_files/figure-latex/unnamed-chunk-4-10.pd
-f>] [14] (hsi_correlation_check.aux) ) 
+] (hsi_correlation_check.aux) ) 
 Here is how much of TeX's memory you used:
- 13916 strings out of 478584
- 224223 string characters out of 2852328
- 557964 words of memory out of 3000000
- 31793 multiletter control sequences out of 15000+600000
+ 13952 strings out of 478552
+ 225835 string characters out of 2849865
+ 558925 words of memory out of 3000000
+ 31859 multiletter control sequences out of 15000+600000
  497153 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,77p,1020b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
-e1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/lm/lmtti10.pfb>
-Output written on hsi_correlation_check.pdf (14 pages, 637081 bytes).
+ 74i,6n,77p,1020b,379s stack positions out of 10000i,1000n,20000p,200000b,80000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/
+lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/lm/lmtti10.pfb>
+Output written on hsi_correlation_check.pdf (14 pages, 634180 bytes).
 PDF statistics:
- 335 PDF objects out of 1000 (max. 8388607)
- 27 named destinations out of 1000 (max. 500000)
- 14435 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 330 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 14427 words of extra memory for PDF output out of 17280 (max. 10000000)
 
