@@ -1,0 +1,130 @@
+---
+title: "School Identification and Metrics"
+author: "Katie Lankowicz"
+date: "4/21/2022"
+output: pdf_document
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+    - \usepackage{float}
+sansfont: Calibri
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Clear workspace
+rm(list=ls())
+
+#### Load libraries ####
+library(raster)
+library(dismo)
+library(dplyr)
+library(gstat)
+library(sp)
+library(SiMRiv)
+library(adehabitatLT)
+library(truncnorm)
+library(donut)
+library(RANN)
+library(nabor)
+library(plotrix)
+library(viridis)
+library(chron)
+library(fastcluster)
+
+# Set seed for reproducibility
+set.seed(123)
+```
+
+## Introduction
+|        We have successfully run both individual-based models of menhaden movement. The next step is to identify schools and quantify their size, shape, and proximity to each other. Explorations into the empirical data provide us with some important priors. First, we have defined "schools" as aggregations of menhaden in which there are never empty spaces of more than 1m between fish. This definition results in schools that are comprise of between 4 and >5,300 individuials, between 0.4 and 144.0 m long, and with a density of between 3.1 to 599.9 individuals per meter. 
+|        The field data collection method (ARIS) compresses three-dimensional space to two dimensions. It also has a very limited, cone-shaped field of view. Therefore, we were never able to determine the shape of a school, nor the volume of water it exists in. We will still pull area information for our simulated schools, but we will not have a comparison to the empirical data.
+|        The shape and size of the modeled area is based on St. Leonard Creek. Add information on the number of individuals and number of schools seen in this area.
+
+## School identification
+|        The first step is to identify schools. Experimentation with methods has led us to believe that unsupervised machine learning is capable of doing this. Agglomerative hierarchical clustering will be used to group similar individuals in progressively larger aggregations. We will use the "simple" method, in which the shortest distance between clusters will be the limiting factor. We will then cut the resulting dendtritic trees at a distance of 1m. This will effectively give us schools of fish where a "school" is defined as a group of fish where the individuals are no more than 1m from each other. 
+|        It should be noted that we are playing a bit loose with "school" terminology. Typically, this word is reserved for aggregations of fish that are exhibiting polarized swimming behavior (oriented and moving in the same direction). We will determine the similarity in bearing of the individuals in each school to explore whether our aggregations would be better described as shoals. Shoals are similar to schools in that they are tight clusters of conspecifics, but the polarization of individuals is relaxed. It is likely that the output from the HSI IBM will not have polarized individuals, but the schooling IBM will.
+
+## Unsupervised learning- agglomerative hierarchical clustering
+### HSI IBM
+\singlespacing
+```{r}
+# Load data
+load("G:/My Drive/Documents_Backup/Modeling/Modeling_RCode/2022_Apr20_0832.Rdata")
+
+# Name data to collect
+listofthings <- c('individual', 'x_loc', 'y_loc', 'cluster',
+                  'ninds', 'schlen', 'area', 'clust_center',
+                  'bearing')
+
+# Initialize blank history list by individual
+test <- matrix(nrow=dim(inds_hist)[3], ncol=length(listofthings))
+clust_hist <- rep(list(test), n)
+# dim=c(nrow, ncol, time_steps)
+clust_hist <- array(unlist(clust_hist), dim=c(n, ncol(test), time_steps))
+colnames(clust_hist) <- listofthings
+
+# Loop through time
+for(i in 1: dim(clust_hist)[3]){
+  # Load individuals in timestep
+  inds <- inds_hist[,,i]
+  
+  # Save xy locations, individual name, and individual bearing
+  clust_hist[,"x_loc",i] <- inds[,"x_loc"]
+  clust_hist[,"y_loc",i] <- inds[,"y_loc"]
+  clust_hist[,"individual",i] <- inds[,"individual"]
+  clust_hist[,"bearing",i] <- inds[,"bearing"]
+  
+  # Bind locations into matrix
+  inds.mat <- cbind(inds[,"x_loc"], inds[,"y_loc"])
+  colnames(inds.mat) <- c("x_loc", "y_loc")
+  
+  # Euclidean distance matrix between all pairs of points
+  dist.t <- dist(inds.mat, method='euclidean')
+  
+  # Clustering model, define clusters as organisms within 1m of each other
+  hc <- hclust(dist.t, "single")
+  cutoff <- 1
+  indscutoff <- 4
+  clust <- cutree(hc, h=cutoff)
+  
+  # Rebind cluster identifiers to locations matrix
+  clust_hist[,"cluster",i] <- clust
+  
+  # Save number of individuals per cluster as table
+  bigclust <- table(clust)
+
+    # Copy ninds to clust_hist
+  clust_hist[,"ninds",i] <- bigclust[clust_hist[,"cluster",i]]
+  
+  # Remove clusters with fewer than 1 individual
+  bigclust <- bigclust[bigclust > indscutoff]
+  
+  # Pull names of clusters
+  bigclust <- as.numeric(names(bigclust))
+  
+  # Determine school length
+  for(j in bigclust){
+    sub1 <- as.data.frame(clust_hist[clust_hist[,"cluster",i]==bigclust[j],,i])
+    df_dist <-  data.frame(as.matrix(dist(cbind(sub1$x_loc, sub1$y_loc))))
+    df_dist_x = df_dist %>% 
+      mutate(row.1 = 1:nrow(df_dist)) %>% 
+      mutate(Y = paste0("Y", row_number())) %>%
+      gather(X,  distance, X1:nrow(.)) %>% 
+      dplyr::select(X, Y, distance) %>% 
+      mutate_at(vars(X, Y), parse_number)
+    
+    df_dist_x_max <- 
+      df_dist_x %>% 
+      dplyr::filter(distance == max(distance)) 
+    
+    pt1 <- (sub1[df_dist_x_max$X[1],])
+    pt2 <- (sub1[df_dist_x_max$X[2],])
+    
+    schlen <- as.numeric(sqrt((pt1[1] - pt2[1])^2 + (pt1[2] - pt2[2])^2))
+    
+  }
+
+
+}
+
+```
