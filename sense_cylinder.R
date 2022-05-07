@@ -99,6 +99,25 @@ sense <- function(inds){
         ang <- posang
         bearing <- as.numeric(inds[i,"bearing"]) - ang
         new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+        if(new_y < 0 | new_y > 2500){
+          ang <- sample(seq(-135,135,1), 1)
+          bearing <- as.numeric(inds[i,"bearing"]) - ang
+          new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          while(new_y > 2500){
+            biggerrange <- seq(-135, 135, by=1)
+            biggerrange <- biggerrange[! biggerrange %in% ang]
+            ang <- sample(biggerrange, 1)
+            bearing <- as.numeric(inds[i,"bearing"]) - ang
+            new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          }
+          while(new_y < 0){
+            biggerrange <- seq(-135, 135, by=1)
+            biggerrange <- biggerrange[! biggerrange %in% ang]
+            ang <- sample(biggerrange, 1)
+            bearing <- as.numeric(inds[i,"bearing"]) - ang
+            new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          }
+        }
       }
     }
     
@@ -131,6 +150,25 @@ sense <- function(inds){
         ang <- posang
         bearing <- as.numeric(inds[i,"bearing"]) - ang
         new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+        if(new_y < 0 | new_y > 2500){
+          ang <- sample(seq(-135,135,1), 1)
+          bearing <- as.numeric(inds[i,"bearing"]) - ang
+          new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          while(new_y > 2500){
+            biggerrange <- seq(-135, 135, by=1)
+            biggerrange <- biggerrange[! biggerrange %in% ang]
+            ang <- sample(biggerrange, 1)
+            bearing <- as.numeric(inds[i,"bearing"]) - ang
+            new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          }
+          while(new_y < 0){
+            biggerrange <- seq(-135, 135, by=1)
+            biggerrange <- biggerrange[! biggerrange %in% ang]
+            ang <- sample(biggerrange, 1)
+            bearing <- as.numeric(inds[i,"bearing"]) - ang
+            new_y <- as.numeric(inds[i,"y_loc"]) + dist*sin(deg2rad(bearing))
+          }
+        }
       }
       rm(minang, maxang)
     }
