@@ -25,7 +25,7 @@ library(lubridate)
 library(dplyr)
 ```
   
-|        Jeremy Testa and his model working group have provided me with output from a Semi-implicit Cross-scale Hydroscience Integrated System Model - Integrated Compartment Model. This is a three-dimensional unstructured grid that simulates environmental variables in the Corsica River in 2006. We will use these data to create dynamic environmental conditions that will be used in an individual-based model (IBM) of menhaden movement. Extensive pre-processing is needed before we can put these data into our IBM, which we hope will closely resemble an idealized shallow estuarine tidal tributary. This document will describe the pre-processing methods used.  
+|        The Chesapeake Bay Program model working group (headed by Richard Tian) have provided me with output from a Semi-implicit Cross-scale Hydroscience Integrated System Model - Integrated Compartment Model. This is a three-dimensional unstructured grid that simulates environmental variables in the Corsica River in 2006. We will use these data to create dynamic environmental conditions that will be used in an individual-based model (IBM) of menhaden movement. Extensive pre-processing is needed before we can put these data into our IBM, which we hope will closely resemble an idealized shallow estuarine tidal tributary. This document will describe the pre-processing methods used.  
 
 ## Original grid space
 |        The bounding box around the modeled portion of the Corsica is approximately 7400m x 5600m. The Corsica is similar to St. Leonard Creek, which is our field data collection area-- the surrounding watershed is not highly developed. It is mostly agricultural land or forested buffers around lots. St. Leonard Creek is mostly forested land with some agricultural and residential area.   
@@ -37,7 +37,7 @@ library(dplyr)
   
 \begin{figure}[H]
   \includegraphics{Corsica_grid.png}
-  \caption{Grid cells in the Corsica River}
+  \caption{Grid cells in the Corsica River, provided by Richard Tian}
 \end{figure}  
   
 \begin{figure}[H]
